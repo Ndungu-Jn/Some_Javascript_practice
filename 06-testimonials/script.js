@@ -44,9 +44,25 @@ const makeTestimonialCard = (testimonial) => {
     </div>`;
 };
 
-const updatePage = () => {
-  let markup = makeTestimonialCard(testimonials[1]);
+let currentTestimonial = 0;
 
+const nextTestimonial = () => {
+  if (currentTestimonial < testimonials.length - 1) currentTestimonial += 1;
+  updatePage();
+};
+const prevTestimonial = () => {
+  if (currentTestimonial > 0) currentTestimonial -= 1;
+  updatePage();
+};
+
+const updatePage = () => {
+  let markup = makeTestimonialCard(testimonials[currentTestimonial]);
+  if (testimonials.length > 1) {
+    markup += `<nav>
+    <button onclick="prevTestimonial()">Previous</button>
+    <button onclick="nextTestimonial()">Next</button>
+    </nav>`;
+  }
   container.innerHTML = markup;
 };
 updatePage();
