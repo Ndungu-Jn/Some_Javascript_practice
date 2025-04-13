@@ -20,6 +20,7 @@ let currentQuestionIndex = 0; // when the page loads, the question will be the f
 
 function handleQuestion(index) {
   // handle quiz process section
+  quizProgress.innerHTML = "";
   questions.forEach((question) => {
     quizProgress.innerHTML += "<span></span>";
   });
@@ -33,6 +34,7 @@ function handleQuestion(index) {
     <p>${questions[index].question}</p>`;
 
   // answers
+  answerContainer.innerHTML = "";
   questions[index].possibleAnswers.forEach((answer) => {
     answerContainer.innerHTML += `(<button>${answer}</button>`;
   });
@@ -45,12 +47,13 @@ function handleQuestion(index) {
       } else {
         console.log("WRONG");
       }
+      if (currentQuestionIndex == questions.length - 1) {
+        currentQuestionIndex = 0;
+      } else {
+        currentQuestionIndex++;
+      }
+      handleQuestion(currentQuestionIndex);
     });
-    if (currentQuestionIndex == questions.length - 1) {
-      currentQuestionIndex = 0;
-    } else {
-      currentQuestionIndex++;
-    }
   });
 }
 
